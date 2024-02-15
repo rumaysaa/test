@@ -8,7 +8,7 @@ def receive_local_ip():
     client_ip = data.get('ip')
     # Do whatever you need to do with the client's local IP address
     print("Client's local IP address:", client_ip)
-    return jsonify({'message': 'Local IP address received successfully'})
+    return jsonify({'message': 'Local IP address received successfully- '+str(client_ip)})
 
 @app.route('/',methods=['get'])
 def main():
