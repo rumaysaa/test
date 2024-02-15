@@ -1,16 +1,18 @@
-from flask import Flask,request
+from flask import Flask, request, jsonify,render_template
 
 app = Flask(__name__)
 
-@app.route('/',methods=['get'])
-def get():
-    if 'X-Forwarded-For' in request.headers:
-# The header can contain a comma-separated list of IPs, the first one being the client's IP
-        client_ips = request.headers['X-Forwarded-For'].split(',')
-        client_ip = client_ips[0].strip()
-    else:
-        client_ip = request.remote_addr
-    return f"Your real IP address is: {client_ip}"
+@app.route('/ip', methods=['POST'])
+def receive_local_ip():
+    data = request.json
+    client_ip = data.get('ip')
+    # Do whatever you need to do with the client's local IP address
+    print("Client's local IP address:", client_ip)
+    return jsonify({'message': 'Local IP address received successfully'})
 
-if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=3000,debug=True)
+@app.route('/',methods=['get'])
+def main():
+    return render_template('page.html')
+
+if __name__ == '__main__':
+    app.run(debug=True)
