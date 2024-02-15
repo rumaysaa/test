@@ -6,7 +6,7 @@ app = Flask(__name__)
 def get():
     if 'X-Forwarded-For' in request.headers:
 # The header can contain a comma-separated list of IPs, the first one being the client's IP
-client_ips = request.headers['X-Forwarded-For'].split(',')
+        client_ips = request.headers['X-Forwarded-For'].split(',')
         client_ip = client_ips[0].strip()
     else:
         client_ip = request.remote_addr
